@@ -6,11 +6,11 @@ export const getCurrentUser = async () => {
 
   if (!userId) return null;
 
-  const profile = await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       userId,
     },
   });
 
-  return profile;
+  return user;
 };

@@ -11,6 +11,8 @@ import { UserRole } from "@prisma/client";
 const Navbar = async () => {
   const user = await getCurrentUser();
 
+  console.log(user);
+
   return (
     <header className="sticky top-0 z-50 w-full py-4 bg-brand-secondary">
       <nav className="container flex items-center justify-between">

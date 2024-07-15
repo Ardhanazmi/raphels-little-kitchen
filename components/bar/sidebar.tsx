@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/sheet";
 import { RiMenu4Line } from "react-icons/ri";
 import NavItem from "./nav-item";
-import { UserButton } from "@clerk/nextjs";
 import { getCurrentUser } from "@/lib/get-current-user";
 import UserAvatar from "../user-avatar";
 import Link from "next/link";
