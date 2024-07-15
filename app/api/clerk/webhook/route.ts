@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     }) as WebhookEvent;
 
     if (evt.type === "user.created") {
-      db.user.create({
+      await db.user.create({
         data: {
           userId: evt.data.id,
           email: evt.data.email_addresses[0].email_address,
