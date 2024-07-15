@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
 export async function POST(req: Request) {
-  const webhookSecret = process.env.CLERK_WEBHOOK_SECRET_KEY;
+  const webhookSecret = process.env.CLERK_WEBHOOK_SIGNING_SECRET;
 
   if (!webhookSecret) {
     throw new Error("Webhook secret not set in .env");
