@@ -48,7 +48,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 text-center">
-          <p>© 2024 Raphel's Little Kitchen. All rights reserved.</p>
+          <p>© 2024 Raphels Little Kitchen. All rights reserved.</p>
         </div>
       </div>
     </footer>
