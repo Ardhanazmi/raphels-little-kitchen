@@ -47,7 +47,6 @@ const CheckoutSchema = z.object({
 });
 
 const CheckoutForm = () => {
-  const serviceRate = 0.1;
   const cart = useCart();
   const router = useRouter();
   const [token, setToken] = useState("");
@@ -55,7 +54,7 @@ const CheckoutForm = () => {
   const [isMounted, setIsMounted] = useState(false);
 
   const totalPrice = cart.items.reduce((total, item) => {
-    return total + Number(item.price) * item.quantity * (1 + serviceRate);
+    return total + Number(item.price) * item.quantity;
   }, 0);
 
   const form = useForm<z.infer<typeof CheckoutSchema>>({
@@ -82,7 +81,6 @@ const CheckoutForm = () => {
         totalPrice,
       });
       setToken(response.data.token);
-      cart.removeAll();
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -101,17 +99,20 @@ const CheckoutForm = () => {
         onSuccess: () => {
           router.push("/my-orders");
           toast.success("Pembayaran berhasil!");
+          cart.removeAll();
         },
         onPending: () => {
           router.push("/my-orders");
           toast("Menunggu pembayaran...");
+          cart.removeAll();
         },
         onError: () => {
-          toast.error("Pembayaran gagal, terjadi kesalahan!");
+          toast.error("Terjadi kesalahan!");
         },
         onClose: () => {
           router.push("/my-orders");
-          toast.error("Kamu belum menyelesaikan pembayaran.");
+          toast.error("Pembayaran tertunda!");
+          cart.removeAll();
         },
       });
     }

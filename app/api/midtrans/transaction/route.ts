@@ -64,8 +64,7 @@ export async function POST(request: Request) {
       return new Response("Total harga dibutuhkan!", { status: 400 });
     }
 
-    const order_id = orderId.generate();
-    const order_items_id = `${orderId.generate()}`;
+    const order_id = `o_id_${orderId.generate()}`;
 
     let snap = new midtransClient.Snap({
       isProduction: false,
@@ -73,20 +72,30 @@ export async function POST(request: Request) {
       clientKey: process.env.MIDTRANS_CLIENT_KEY,
     });
 
+    const serviceFee = Number(totalPrice) * 0.02;
+
     let parameter = {
       transaction_details: {
         order_id,
-        gross_amount: Number(totalPrice),
+        gross_amount: Number(totalPrice) + serviceFee,
       },
       credit_card: {
         secure: true,
       },
-      item_details: products.map((product: any) => ({
-        id: product.id,
-        name: product.name,
-        price: Number(product.price),
-        quantity: product.quantity,
-      })),
+      item_details: [
+        ...products.map((product: any) => ({
+          id: product.id,
+          name: product.name,
+          price: Number(product.price),
+          quantity: product.quantity,
+        })),
+        {
+          id: "S01",
+          name: "Service Fee",
+          price: serviceFee,
+          quantity: 1,
+        },
+      ],
       customer_details: {
         first_name: name,
         email: user.email,
@@ -123,7 +132,8 @@ export async function POST(request: Request) {
         token: transaction.token,
         orderItems: {
           create: products.map((product: any) => ({
-            id: order_items_id,
+            id: `oi_id_${orderId.generate()}`,
+            quantity: product.quantity,
             product: {
               connect: {
                 id: product.id,
@@ -141,6 +151,8 @@ export async function POST(request: Request) {
         status: 422,
       });
     }
+
+    console.log(error);
 
     return new Response("Tidak dapat membuat transaksi, coba lagi", {
       status: 500,

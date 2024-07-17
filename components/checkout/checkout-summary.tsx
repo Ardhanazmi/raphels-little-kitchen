@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import useCart from "@/hooks/use-cart";
 import { formatPrice } from "@/lib/utils";
-import { Info } from "lucide-react";
 
 const CheckoutSummary = () => {
   const cart = useCart();
   const serviceRate = 0.02;
 
-  const totalPrice = cart.items.reduce((total, item) => {
-    return total + Number(item.price) * item.quantity * (1 + serviceRate);
+  const subtotal = cart.items.reduce((acc, item) => {
+    return acc + Number(item.price) * item.quantity;
   }, 0);
+
+  const totalPrice = subtotal + subtotal * serviceRate;
 
   return (
     <div className="px-4 p-6 bg-brand border text-white border-black rounded-lg sm:p-6 lg:col-span-5 lg:p-8 ">
@@ -20,11 +20,11 @@ const CheckoutSummary = () => {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <p>Subtotal</p>
-            <p>{formatPrice(totalPrice)}</p>
+            <p>{formatPrice(subtotal)}</p>
           </div>
           <div className="flex items-center justify-between">
             <p>Service (2%)</p>
-            <p>{formatPrice(totalPrice * serviceRate)}</p>
+            <p>{formatPrice(subtotal * serviceRate)}</p>
           </div>
         </div>
         <div className="flex items-center font-medium justify-between pt-4 border-t border-white">
