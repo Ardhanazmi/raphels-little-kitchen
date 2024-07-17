@@ -127,7 +127,7 @@ export async function POST(request: Request) {
         postalCode,
         note,
         totalQuantity,
-        totalPrice: Number(totalPrice),
+        totalPrice: Number(totalPrice) + serviceFee,
         status: "PENDING",
         token: transaction.token,
         orderItems: {

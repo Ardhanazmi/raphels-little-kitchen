@@ -29,6 +29,7 @@ import { id } from "date-fns/locale";
 import { Textarea } from "../ui/textarea";
 import toast from "react-hot-toast";
 import axios, { AxiosError } from "axios";
+import { User } from "@prisma/client";
 
 const CheckoutSchema = z.object({
   name: z.string().min(1, "Nama perlu diisi"),
@@ -46,7 +47,11 @@ const CheckoutSchema = z.object({
   note: z.string().optional(),
 });
 
-const CheckoutForm = () => {
+interface CheckoutFormProps {
+  user: User;
+}
+
+const CheckoutForm = ({ user }: CheckoutFormProps) => {
   const cart = useCart();
   const router = useRouter();
   const [token, setToken] = useState("");
@@ -72,6 +77,8 @@ const CheckoutForm = () => {
   });
 
   const handleCheckOut = async (values: z.infer<typeof CheckoutSchema>) => {
+    if (!user) return router.push("/sign-in");
+
     setLoading(true);
     try {
       const products = cart.items.map((item) => item);
@@ -315,7 +322,7 @@ const CheckoutForm = () => {
         <Button
           variant="brand"
           type="submit"
-          disabled={loading}
+          disabled={loading || cart.items.length === 0 || !user}
           className="w-full"
         >
           Pesan

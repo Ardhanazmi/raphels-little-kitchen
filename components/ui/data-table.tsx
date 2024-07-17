@@ -27,7 +27,7 @@ import { usePathname } from "next/navigation";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  deleteRowsAction: React.MouseEventHandler<HTMLButtonElement>;
+  deleteRowsAction?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 export function DataTable<TData, TValue>({

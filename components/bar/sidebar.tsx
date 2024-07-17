@@ -44,9 +44,13 @@ export async function Sidebar() {
             <li>
               <NavItem href="/#location" label="Lokasi" />
             </li>
-            {user?.role === UserRole.ADMIN && (
+            {user?.role === UserRole.ADMIN ? (
               <li>
                 <NavItem href="/dashboard" label="Dashboard" />
+              </li>
+            ) : (
+              <li>
+                <NavItem href="/my-order" label="My Order" />
               </li>
             )}
             <li>

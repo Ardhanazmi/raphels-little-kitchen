@@ -28,3 +28,16 @@ export async function getProducts() {
     return [];
   }
 }
+
+export async function getProductDetail(productId: string) {
+  try {
+    const product = await db.product.findUnique({
+      where: {
+        id: productId,
+      },
+    });
+    return product;
+  } catch (error) {
+    return null;
+  }
+}

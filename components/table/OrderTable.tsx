@@ -1,131 +1,82 @@
-// "use client";
-// import * as React from "react";
-// import { useRouter } from "next/navigation";
+"use client";
+import * as React from "react";
+import { useRouter } from "next/navigation";
 
-// import { Checkbox } from "@/components/ui/checkbox";
-// import { ColumnDef } from "@tanstack/react-table";
-// import { DataTable } from "../ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { DataTable } from "../ui/data-table";
 
-// import axios from "axios";
-// import CellActionsOrder from "./cell-actions-order";
-// import { toast } from "sonner";
-// import { Store } from "@prisma/client";
-// import { rupiahFormat } from "@/lib/utils";
+import CellActionsOrder from "./cell-actions-order";
+import { cn, formatPrice } from "@/lib/utils";
 
-// export type OrdersColumn = {
-//   id: string;
-//   product: {
-//     name: string;
-//     price: number;
-//   };
-//   order: {
-//     status: string;
-//   };
-//   createdAt: string;
-// };
+export type OrdersColumn = {
+  id: string;
+  name: string;
+  totalQuantity: number;
+  dateShipping: string;
+  totalPrice: number;
+  status: string;
+  createdAt: string;
+};
 
-// interface OrderTableProps {
-//   orderData: OrdersColumn[];
-//   store: Store;
-// }
+interface OrderTableProps {
+  orderData: OrdersColumn[];
+}
 
-// export default function OrderTable({ orderData, store }: OrderTableProps) {
-//   const [selectedRowIds, setSelectedRowIds] = React.useState<string[]>([]);
-//   const router = useRouter();
+export default function OrderTable({ orderData }: OrderTableProps) {
+  const columns: ColumnDef<OrdersColumn>[] = [
+    {
+      accessorKey: "id",
+      header: "Order ID",
+      cell: ({ row }) => <p>{row.original.id}</p>,
+    },
+    {
+      accessorKey: "name",
+      header: "Pembeli",
+      cell: ({ row }) => <p>{row.original.name}</p>,
+    },
+    {
+      accessorKey: "totalQuantity",
+      header: "Jumlah",
+      cell: ({ row }) => <p>{row.original.totalQuantity}</p>,
+    },
+    {
+      accessorKey: "totalPrice",
+      header: "Total Harga",
+      cell: ({ row }) => <p>{formatPrice(row.original.totalPrice)}</p>,
+    },
+    {
+      accessorKey: "createdAt",
+      header: "Pemesanan",
+      cell: ({ row }) => <p>{row.original.createdAt}</p>,
+    },
+    {
+      accessorKey: "dateShipping",
+      header: "Pengiriman",
+      cell: ({ row }) => <p>{row.original.dateShipping}</p>,
+    },
+    {
+      accessorKey: "order",
+      header: "Status Pembelian",
+      cell: ({ row }) => (
+        <span
+          className={cn(
+            "text-xs font-semibold px-3 py-1 rounded-full text-white",
+            row.original.status === "PENDING" && "bg-yellow-500",
+            row.original.status === "PAID" && "bg-green-500",
+            row.original.status === "CANCELED" && "bg-red-500"
+          )}
+        >
+          {row.original.status === "PENDING" && "Tertunda"}
+          {row.original.status === "PAID" && "Sukses"}
+          {row.original.status === "CANCELED" && "Batal"}
+        </span>
+      ),
+    },
+    {
+      id: "actions",
+      cell: ({ row }) => <CellActionsOrder data={row.original} />,
+    },
+  ];
 
-//   const columns: ColumnDef<OrdersColumn>[] = [
-//     // {
-//     //   id: "select",
-//     //   header: ({ table }) => (
-//     //     <Checkbox
-//     //       checked={table.getIsAllPageRowsSelected()}
-//     //       onCheckedChange={(value) => {
-//     //         table.toggleAllPageRowsSelected(!!value);
-//     //         setSelectedRowIds((prev) =>
-//     //           prev.length === orderData.length
-//     //             ? []
-//     //             : orderData.map((row) => row.id)
-//     //         );
-//     //       }}
-//     //       aria-label="Select all"
-//     //     />
-//     //   ),
-//     //   cell: ({ row }) => (
-//     //     <Checkbox
-//     //       checked={row.getIsSelected()}
-//     //       onCheckedChange={(value) => {
-//     //         row.toggleSelected(!!value);
-//     //         setSelectedRowIds((prev) =>
-//     //           value
-//     //             ? [...prev, row.original.id]
-//     //             : prev.filter((id) => id !== row.original.id)
-//     //         );
-//     //       }}
-//     //       aria-label="Select row"
-//     //     />
-//     //   ),
-//     //   enableSorting: false,
-//     //   enableHiding: false,
-//     // },
-//     {
-//       accessorKey: "id",
-//       header: "Order ID",
-//       cell: ({ row }) => <p>{row.original.id}</p>,
-//     },
-//     {
-//       accessorKey: "product",
-//       header: "Produk",
-//       cell: ({ row }) => <p>{row.original.product.name}</p>,
-//     },
-//     {
-//       accessorKey: "price",
-//       header: "Harga",
-//       cell: ({ row }) => (
-//         <p>{rupiahFormat(Number(row.original.product.price))}</p>
-//       ),
-//     },
-//     {
-//       accessorKey: "order",
-//       header: "Status Pembelian",
-//       cell: ({ row }) => (
-//         <p>
-//           {row.original.order.status === "PENDING" && "Menunggu Konfirmasi"}
-//           {row.original.order.status === "PAID" && "Dibayar"}
-//           {row.original.order.status === "CANCELED" && "Dibatalkan"}
-//         </p>
-//       ),
-//     },
-//     {
-//       accessorKey: "createdAt",
-//       header: "Dipesan Pada",
-//     },
-//     // {
-//     //   id: "actions",
-//     //   cell: ({ row }) => <CellActionsOrder data={row.original} />,
-//     // },
-//   ];
-
-//   async function deleteOrder(orderId: string) {
-//     try {
-//       await axios.delete(`/api/order/${orderId}`);
-//       router.refresh();
-//       toast.success("Pesanan telah di hapus.");
-//     } catch (error) {
-//       toast.error("Terjadi kesalahan.");
-//     }
-//   }
-
-//   const handleDeleteSelected = async () => {
-//     await Promise.all(selectedRowIds.map((id) => deleteOrder(id)));
-//     setSelectedRowIds([]);
-//   };
-
-//   return (
-//     <DataTable
-//       store={store}
-//       columns={columns}
-//       data={orderData}
-//       deleteRowsAction={() => void handleDeleteSelected()}
-//     />
-//   );
-// }
+  return <DataTable columns={columns} data={orderData} />;
+}

@@ -8,6 +8,7 @@ import { Product } from "@prisma/client";
 import { formatPrice } from "@/lib/utils";
 import useCart from "@/hooks/use-cart";
 import { MouseEventHandler } from "react";
+import Link from "next/link";
 
 interface ProductItemProps {
   product: Product;
@@ -24,13 +25,15 @@ export default function ProductItem({ product }: ProductItemProps) {
 
   return (
     <Card className="w-full max-w-md overflow-hidden rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl">
-      <Image
-        src={product.image}
-        alt={product.name}
-        width={500}
-        height={500}
-        className="w-full h-40 lg:h-64 object-cover"
-      />
+      <Link href={`/products/${product.id}`}>
+        <Image
+          src={product.image}
+          alt={product.name}
+          width={500}
+          height={500}
+          className="w-full h-40 lg:h-64 object-cover"
+        />
+      </Link>
       <div className="p-4 bg-background">
         <h3 className="md:text-xl font-semibold line-clamp-2">
           {product.name}

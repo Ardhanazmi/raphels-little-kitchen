@@ -25,7 +25,9 @@ const CheckoutBag = () => {
           ))}
         </ul>
       ) : (
-        <p className="text-center">Your cart is empty</p>
+        <p className="text-center text-sm font-medium">
+          Tidak ada produk di keranjang
+        </p>
       )}
     </div>
   );
