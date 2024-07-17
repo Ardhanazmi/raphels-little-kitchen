@@ -5,7 +5,7 @@ import LocationSection from "@/components/section/location";
 
 export default async function Home() {
   return (
-    <div className="container pt-16 to-white">
+    <div className="container pt-16">
       <HeroSection />
       <HowToOrderSection />
       <MenuSection />

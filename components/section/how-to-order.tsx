@@ -3,7 +3,7 @@ import OrderStep from "../order-step";
 
 const HowToOrderSection = () => {
   return (
-    <div className="pt-28 space-y-12">
+    <div id="order" className="pt-28 space-y-12">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-semibold">Cara Pemesanan</h2>
         <p className="text-muted-foreground lg:w-[45%] mx-auto">

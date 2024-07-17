@@ -2,7 +2,7 @@ import React from "react";
 
 const LocationSection = () => {
   return (
-    <div className="pt-28 pb-10 space-y-12">
+    <div id="location" className="pt-28 pb-10 space-y-12">
       <div className="text-center space-y-2">
         <h2 className="text-3xl font-semibold">Lokasi Kami</h2>
         <p className="text-muted-foreground lg:w-[45%] mx-auto">

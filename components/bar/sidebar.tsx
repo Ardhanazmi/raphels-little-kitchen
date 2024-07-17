@@ -36,13 +36,13 @@ export async function Sidebar() {
               <NavItem href="/" label="Home" />
             </li>
             <li>
-              <NavItem href="/order" label="order" />
+              <NavItem href="/#order" label="order" />
             </li>
             <li>
-              <NavItem href="/menu" label="Menu" />
+              <NavItem href="/#menu" label="Menu" />
             </li>
             <li>
-              <NavItem href="/contact" label="Contact" />
+              <NavItem href="/#location" label="Lokasi" />
             </li>
             {user?.role === UserRole.ADMIN && (
               <li>

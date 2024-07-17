@@ -1,8 +1,4 @@
-"use client";
-
-import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 interface NavItemProps {
   href: string;
@@ -10,15 +6,8 @@ interface NavItemProps {
 }
 
 const NavItem = ({ href, label }: NavItemProps) => {
-  const pathname = usePathname();
-
   return (
-    <Link
-      href={href}
-      className={cn("hover:text-brand", {
-        "text-brand font-medium": pathname === href,
-      })}
-    >
+    <Link href={href} className="hover:text-brand">
       {label}
     </Link>
   );

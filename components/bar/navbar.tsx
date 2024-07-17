@@ -7,32 +7,31 @@ import { cn } from "@/lib/utils";
 import NavItem from "./nav-item";
 import { Sidebar } from "./sidebar";
 import { UserRole } from "@prisma/client";
+import CartButton from "../cart-button";
 
 const Navbar = async () => {
   const user = await getCurrentUser();
-
-  console.log(user);
 
   return (
     <header className="sticky top-0 z-50 w-full py-4 bg-brand-secondary">
       <nav className="container flex items-center justify-between">
         <div>
-          <h1 className="font-medium text-xl text-brand">
+          <h1 className="font-medium text-lg md:text-xl text-brand">
             Raphels Little Kitchen
           </h1>
         </div>
-        <ul className="lg:flex items-center space-x-12 font-light hidden">
+        <ul className="lg:flex items-center space-x-12 hidden">
           <li>
             <NavItem href="/" label="Home" />
           </li>
           <li>
-            <NavItem href="/order" label="order" />
+            <NavItem href="/#order" label="order" />
           </li>
           <li>
-            <Link href="/menu">Menu</Link>
+            <NavItem href="/#menu" label="Menu" />
           </li>
           <li>
-            <Link href="/contact">Contact</Link>
+            <NavItem href="/#location" label="Location" />
           </li>
           {user?.role === UserRole.ADMIN && (
             <li>
@@ -40,9 +39,10 @@ const Navbar = async () => {
             </li>
           )}
         </ul>
-        <div>
+        <div className="flex items-center space-x-2 lg:space-x-4">
+          <CartButton />
           <Sidebar />
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex">
             {user ? (
               <UserButton afterSignOutUrl="/" />
             ) : (
