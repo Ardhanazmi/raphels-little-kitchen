@@ -50,7 +50,7 @@ export async function Sidebar() {
               </li>
             ) : (
               <li>
-                <NavItem href="/my-order" label="My Order" />
+                <NavItem href="/my-orders" label="My Orders" />
               </li>
             )}
             <li>

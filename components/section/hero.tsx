@@ -1,8 +1,8 @@
-import React from "react";
-import { Button } from "../ui/button";
-import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import { Button, buttonVariants } from "../ui/button";
+import { ArrowUpRight } from "lucide-react";
 import { AspectRatio } from "../ui/aspect-ratio";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -17,10 +17,10 @@ const HeroSection = () => {
           bahan berkualitas tinggi. Kami berkomitmen <br /> untuk memberikan
           rasa yang luar biasa di setiap gigitan.
         </p>
-        <Button variant="brand">
-          Order Sekarang
+        <Link href="/products" className={buttonVariants({ variant: "brand" })}>
+          Pesan Sekarang
           <ArrowUpRight className="ml-2 h-4 w-4" />
-        </Button>
+        </Link>
       </div>
       <div className="w-full lg:w-1/2">
         <AspectRatio ratio={12 / 9}>

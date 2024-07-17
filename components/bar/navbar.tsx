@@ -1,15 +1,16 @@
+import Link from "next/link";
 import { getCurrentUser } from "@/lib/get-current-user";
 import { UserButton } from "@clerk/nextjs";
-import Link from "next/link";
-import React from "react";
 import { buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
 import NavItem from "./nav-item";
 import { Sidebar } from "./sidebar";
 import { UserRole } from "@prisma/client";
 import CartButton from "../cart-button";
+import { currentUser } from "@clerk/nextjs/server";
 
 const Navbar = async () => {
+  const clerkUser = await currentUser();
   const user = await getCurrentUser();
 
   return (
@@ -17,7 +18,7 @@ const Navbar = async () => {
       <nav className="container flex items-center justify-between">
         <div>
           <h1 className="font-medium text-lg md:text-xl text-brand">
-            Raphels Little Kitchen
+            <Link href="/">Raphels Little Kitchen</Link>
           </h1>
         </div>
         <ul className="lg:flex items-center space-x-12 hidden">
@@ -33,9 +34,13 @@ const Navbar = async () => {
           <li>
             <NavItem href="/#location" label="Location" />
           </li>
-          {user?.role === UserRole.ADMIN && (
+          {user?.role === UserRole.ADMIN ? (
             <li>
               <NavItem href="/dashboard" label="Dashboard" />
+            </li>
+          ) : (
+            <li>
+              <NavItem href="/my-orders" label="My Orders" />
             </li>
           )}
         </ul>
@@ -43,14 +48,11 @@ const Navbar = async () => {
           <CartButton />
           <Sidebar />
           <div className="hidden lg:flex">
-            {user ? (
+            {clerkUser ? (
               <UserButton afterSignOutUrl="/" />
             ) : (
               <Link
-                className={cn(
-                  buttonVariants({ variant: "default" }),
-                  "px-7 bg-brand"
-                )}
+                className={cn(buttonVariants({ variant: "brand" }), "px-7")}
                 href="/sign-in"
               >
                 Log in

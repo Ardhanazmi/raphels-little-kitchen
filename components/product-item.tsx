@@ -38,21 +38,23 @@ export default function ProductItem({ product }: ProductItemProps) {
         <h3 className="md:text-xl font-semibold line-clamp-2">
           {product.name}
         </h3>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-1 lg:line-clamp-2">
+        <p className="text-sm text-muted-foreground mb-2 md:mb-4 line-clamp-1 lg:line-clamp-2">
           {product.description}
         </p>
-        <div className="flex items-center justify-between">
-          <span className="md:text-lg font-semibold">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-0">
+          <span className="md:text-lg text-sm font-semibold">
             {formatPrice(Number(product.price))}
           </span>
-          <Button
-            size="icon"
-            variant="brand"
-            className="rounded-full"
-            onClick={onAddToCart}
-          >
-            <ShoppingCart className="h-4 w-4" />
-          </Button>
+          <div className="flex justify-end items-center">
+            <Button
+              size="icon"
+              variant="brand"
+              className="rounded-full h-8 w-8 md:w-10 md:h-10"
+              onClick={onAddToCart}
+            >
+              <ShoppingCart className="h-3 w-3 md:h-4 md:w-4" />
+            </Button>
+          </div>
         </div>
       </div>
     </Card>

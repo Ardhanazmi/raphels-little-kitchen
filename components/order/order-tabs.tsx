@@ -13,7 +13,7 @@ const OrderTabs = () => {
 
   const tabs = [
     {
-      title: "Semua Pesanan",
+      title: "Semua",
       href: `/my-orders`,
       isActive: status === null,
     },
@@ -28,7 +28,7 @@ const OrderTabs = () => {
       isActive: status === "PAID",
     },
     {
-      title: "Dibatalkan",
+      title: "Gagal",
       href: `/my-orders?status=CANCELED`,
       isActive: status === "CANCELED",
     },
@@ -53,7 +53,7 @@ const OrderTabs = () => {
             <TabsTrigger
               value={tab.href}
               className={cn(
-                "w-full inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium text-muted-foreground ring-offset-background transition-all hover:bg-brand hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+                "w-full inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-xs md:text-sm font-medium text-muted-foreground ring-offset-background transition-all hover:bg-brand hover:text-brand-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
                 tab.isActive && "text-brand"
               )}
             >

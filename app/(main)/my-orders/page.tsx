@@ -41,7 +41,7 @@ const MyOrdersPage = async ({
 
   return (
     <div className="space-y-7 container py-6 min-h-screen">
-      <div>
+      <div className="space-y-2">
         <div className="flex items-center gap-2">
           <ShoppingBag size={24} />
           <h1 className="text-xl font-bold tracking-tight text-transparent md:text-2xl lg:text-3xl bg-gradient-to-r from-gray-900 via-gray-700 to-gray-500 bg-clip-text">

@@ -121,7 +121,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           </Badge>
         ) : (
           <Badge variant="destructive" className="capitalize">
-            Dibatalkan
+            Batal
           </Badge>
         )}
       </div>
@@ -143,7 +143,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
                   <div>
                     <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                       <Link
-                        href={`/xxxx/${item.productId}`}
+                        href={`/products/${item.productId}`}
                         className="font-semibold text-black sm:text-lg line-clamp-2"
                       >
                         {item.product.name}
@@ -162,20 +162,20 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           )}
           <div>
             <div className="space-y-1">
-              <div className="flex items-center justify-between font-semibold pt-3">
+              <div className="flex items-center justify-between text-sm md:text-base font-semibold pt-3">
                 <p className="mr-2">Subtotal :</p>
                 <p className="text-right">{formatPrice(Number(subtotal))}</p>
               </div>
-              <div className="flex items-center justify-between font-semibold">
+              <div className="flex items-center justify-between text-sm md:text-base font-semibold">
                 <p className="mr-2">Service (2%) :</p>
                 <p className="text-right">
                   {formatPrice(Number(subtotal! * 0.02))}
                 </p>
               </div>
             </div>
-            <div className="flex items-center justify-between py-3">
-              <p className="mr-2 font-bold sm:text-xl">Total Harga :</p>
-              <p className="font-bold text-right">
+            <div className="flex items-center md:text-lg font-semibold justify-between py-3">
+              <p className="mr-2">Total Harga :</p>
+              <p className="text-right">
                 {formatPrice(Number(order.totalPrice))}
               </p>
             </div>
@@ -215,7 +215,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
                     href={`/my-orders/${order.id}`}
                     aria-disabled={isLoading}
                     className={cn(
-                      buttonVariants({ variant: "brand" }),
+                      buttonVariants({ variant: "brand", size: "sm" }),
                       "flex items-center gap-1 min-w-[100px]"
                     )}
                   >

@@ -47,8 +47,6 @@ export async function getOrderDetailDashboard(
 ): Promise<OrderDetail | null> {
   const user = await getCurrentUser();
 
-  if (user?.role !== "ADMIN") return null;
-
   try {
     const order = await db.order.findUnique({
       where: {

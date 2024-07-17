@@ -34,7 +34,7 @@ const HowToOrderSection = () => {
           index={4}
           image="/delivery.svg"
           title="Pesanan Siap"
-          description="Anda dapat memilih metode pengiriman kue"
+          description="Pesanan anda siap diantarkan via ojek online"
         />
       </div>
     </div>
