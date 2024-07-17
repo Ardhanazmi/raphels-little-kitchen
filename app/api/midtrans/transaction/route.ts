@@ -65,7 +65,7 @@ export async function POST(request: Request) {
     }
 
     const order_id = orderId.generate();
-    const order_items_id = `OI-${orderId.generate()}`;
+    const order_items_id = `${orderId.generate()}`;
 
     let snap = new midtransClient.Snap({
       isProduction: false,
