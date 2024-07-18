@@ -43,14 +43,12 @@ export async function POST(req: Request) {
           userId: evt.data.id,
           email: evt.data.email_addresses[0].email_address,
           name: `${evt.data.first_name} ${
-            evt.data.last_name && evt.data.last_name
+            evt.data.last_name ? evt.data.last_name : ""
           }`,
           imageUrl: evt.data.image_url,
         },
       });
     }
-
-    console.log("Webhook received", evt.data);
 
     return NextResponse.json({
       message: "Webhook received",
