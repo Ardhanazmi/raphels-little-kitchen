@@ -28,7 +28,7 @@ const OrderTabs = () => {
       isActive: status === "PAID",
     },
     {
-      title: "Gagal",
+      title: "Batal",
       href: `/my-orders?status=CANCELED`,
       isActive: status === "CANCELED",
     },
