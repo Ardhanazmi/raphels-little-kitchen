@@ -26,7 +26,7 @@ const Navbar = async () => {
             <NavItem href="/" label="Home" />
           </li>
           <li>
-            <NavItem href="/#order" label="order" />
+            <NavItem href="/#order" label="Order" />
           </li>
           <li>
             <NavItem href="/#menu" label="Menu" />
